@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  project:
+    container_name: project-service
+    build: .
+    command: ['npm', 'run', 'dev']
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PORT: ${PORT}
+      MY_SECRET: ${MY_SECRET}
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - project_network
+    volumes:
+      - ./src:/home/node/app/src
+    init: true
+
+networks:
+  project_network:
+

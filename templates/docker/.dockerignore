@@ -1,0 +1,11 @@
+node_modules/
+*.rest
+.env.example
+.eslintignore
+.eslintrc
+.gitignore
+.prettierrc
+CHANGELOG.md
+LICENSE.md
+README.md
+docker-compose.yml
