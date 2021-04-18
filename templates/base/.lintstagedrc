@@ -1,0 +1,6 @@
+{
+  "*.{js,jsx,mjs,ts,tsx}": [
+    "prettier --staged --write",
+    "eslint --cache -c .eslintrc . --fix"
+  ]
+}
