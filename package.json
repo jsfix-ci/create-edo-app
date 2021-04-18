@@ -26,7 +26,9 @@
     "node": "14.x",
     "npm": "7.x"
   },
-  "main": "index.js",
+  "bin": {
+    "create-edo-app": "./bin/createEdoApp.js"
+  },
   "scripts": {
     "prepare": "husky install",
     "release": "standard-version --no-verify --sign",
@@ -36,6 +38,13 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --staged --write"
     ]
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^6.2.1",
+    "create-git": "^1.0.0-2",
+    "create-package-json": "^0.1.2",
+    "fs-extra": "^9.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
