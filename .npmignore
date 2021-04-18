@@ -1,0 +1,10 @@
+test/
+tmp/
+coverage/
+issues/
+.github/
+website/
+*.md
+.commitlintrc.js
+.prettierrc
+Dockerfile
