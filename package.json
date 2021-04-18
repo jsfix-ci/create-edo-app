@@ -1,6 +1,6 @@
 {
   "name": "@vanntile/create-edo-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Opinionated Express app template with Docker and OpenAPI.",
   "author": {
     "name": "vanntile",
