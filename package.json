@@ -42,7 +42,6 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "commander": "^6.2.1",
-    "create-git": "^1.0.0-2",
     "create-package-json": "^0.1.2",
     "fs-extra": "^9.1.0"
   },

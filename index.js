@@ -1,7 +1,6 @@
 'use strict'
 const chalk = require('chalk')
 const { execSync } = require('child_process')
-const createGit = require('create-git')
 const createPackageJson = require('create-package-json')
 const fs = require('fs-extra')
 const path = require('path')
@@ -77,28 +76,20 @@ module.exports = async ({ directory, withFetch, withDocker, prompt }) => {
   }
 
   await createPackageJson(packageOptions)
-  log(`${step('NPM')} Initialized npm package and installed dependencies`)
+  log(`${step('NPM')} Initialized npm package and installed dependencies.`)
 
-  await createGit({
-    silent: prompt,
-    cwd: directory,
-    primaryBranch: 'master',
-    ignoreExisting: true,
-    initialCommitMessage: 'init: :tada: initial commit',
-    remoteOrigin: '',
-    ignoreTemplates: [],
-    additionalRules: [],
-    push: false,
-    commitAll: true,
-  })
-  log(`${step('GIT')} Initialized git repository`)
+  const createGitCommand = `cd ${directory} && git init`
+  if (runCommand(createGitCommand)) log(`${step('GIT')} Initialized git repository.`)
 
   const createLocalEnvCommand = `cd ${directory} && cp .env.example .env`
-  const localEnvResult = runCommand(createLocalEnvCommand)
-  if (localEnvResult) log(`${step('ENV')} Created local .env file`)
+  if (runCommand(createLocalEnvCommand)) log(`${step('ENV')} Created local .env file.`)
 
   const huskyCommand = `cd ${directory} && npm set-script prepare "husky install" && npm run prepare &&
   npx husky add .husky/pre-commit "npx lint-staged"`
-  const huskyResult = runCommand(huskyCommand)
-  if (huskyResult) log(`${step('HUSKY')} Initialized husky hook`)
+  if (runCommand(huskyCommand)) log(`${step('HUSKY')} Initialized husky hook.`)
+
+  const initialCommitCommand = `cd ${directory} && git add . && git commit ${
+    !prompt ? '--quiet' : ''
+  } -m "init: :tada: initial commit"`
+  if (runCommand(initialCommitCommand)) log(`${step('COMMIT')} Created initial commit.`)
 }
