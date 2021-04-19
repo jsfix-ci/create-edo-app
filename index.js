@@ -30,11 +30,11 @@ const runCommand = (command) => {
   return true
 }
 
-module.exports = async ({ directory, withFetch, withDocker, prompt }) => {
+module.exports = async ({ directory, silent, withFetch, withDocker }) => {
   log(`${step('START')} Initializing project ${chalk.cyan(directory)}`)
 
   const packageOptions = {
-    prompt,
+    prompt: !silent,
     directory,
     name: directory,
     description: `Project created with ${pkg.name}`,
@@ -89,7 +89,7 @@ module.exports = async ({ directory, withFetch, withDocker, prompt }) => {
   if (runCommand(huskyCommand)) log(`${step('HUSKY')} Initialized husky hook.`)
 
   const initialCommitCommand = `cd ${directory} && git add . && git commit ${
-    !prompt ? '--quiet' : ''
+    silent ? '--quiet' : ''
   } -m "init: :tada: initial commit"`
   if (runCommand(initialCommitCommand)) log(`${step('COMMIT')} Created initial commit.`)
 }

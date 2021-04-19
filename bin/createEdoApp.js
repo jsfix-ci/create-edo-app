@@ -13,13 +13,13 @@ program
   .name(pkg.name)
   .usage(`[options] ${chalk.cyan('<directory>')}`)
   .arguments('<directory>')
-  .option('--prompt', 'show command prompts', false)
+  .option('--silent', 'do not show command prompts', true)
   .option('--with-fetch', 'include node-fetch', true)
   .option('--with-docker', 'include Docker', true)
   .action((d) => (directory = d))
   .parse()
 
-const { withFetch, withDocker, prompt } = program.opts()
+const { silent, withFetch, withDocker } = program.opts()
 
 // Run the app
-createEdoApp({ directory, withFetch, withDocker, prompt })
+createEdoApp({ directory, silent, withFetch, withDocker })
