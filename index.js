@@ -24,8 +24,6 @@ const runCommands = (commandList) => runCommand(commandList.join(' && '))
 module.exports = async ({ directory, silent, withFetch, withDocker, withCommitlint }) => {
   const cd = `cd ${directory}`
 
-  console.log({ silent })
-
   const packageOptions = {
     ...config.options,
     prompt: !silent,

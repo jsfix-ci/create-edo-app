@@ -1,26 +1,30 @@
 #! /usr/bin/env node
 'use strict'
-
 const chalk = require('chalk')
-const { program } = require('commander')
+const { program, Option } = require('commander')
 const pkg = require('../package.json')
 const createEdoApp = require('../')
 
-let directory
+const TRUE = 'true'
+const trueOpt = (...args) => new Option(...args).choices(['true', 'false']).default(TRUE)
+
+let directory = '',
+  options = {}
 
 program
   .version(pkg.version)
   .name(pkg.name)
   .usage(`[options] ${chalk.cyan('<directory>')}`)
   .arguments('<directory>')
-  .option('--silent', 'do not show command prompts', true)
-  .option('--with-fetch', 'include node-fetch', true)
-  .option('--with-docker', 'include Docker', true)
-  .option('--with-commitlint', 'include commitlint and standard-version', true)
-  .action((d) => (directory = d))
+  .addOption(trueOpt('--silent <boolean>', 'do not show command prompts'))
+  .addOption(trueOpt('--with-fetch <boolean>', 'include node-fetch'))
+  .addOption(trueOpt('--with-docker <boolean>', 'include Docker'))
+  .addOption(trueOpt('--with-commitlint <boolean>', 'include commitlint and standard-version'))
+  .action((d, opts) => {
+    directory = d
+    for (let key in opts) options[key] = opts[key] === TRUE
+  })
   .parse()
 
-const { silent, withFetch, withDocker, withCommitlint } = program.opts()
-
 // Run the app
-createEdoApp({ directory, silent, withFetch, withDocker, withCommitlint })
+createEdoApp({ directory, ...options })
