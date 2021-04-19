@@ -16,10 +16,11 @@ program
   .option('--silent', 'do not show command prompts', true)
   .option('--with-fetch', 'include node-fetch', true)
   .option('--with-docker', 'include Docker', true)
+  .option('--with-commitlint', 'include commitlint and standard-version', true)
   .action((d) => (directory = d))
   .parse()
 
-const { silent, withFetch, withDocker } = program.opts()
+const { silent, withFetch, withDocker, withCommitlint } = program.opts()
 
 // Run the app
-createEdoApp({ directory, silent, withFetch, withDocker })
+createEdoApp({ directory, silent, withFetch, withDocker, withCommitlint })

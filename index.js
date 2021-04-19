@@ -21,8 +21,10 @@ const runCommand = (command) => {
 }
 const runCommands = (commandList) => runCommand(commandList.join(' && '))
 
-module.exports = async ({ directory, silent, withFetch, withDocker }) => {
+module.exports = async ({ directory, silent, withFetch, withDocker, withCommitlint }) => {
   const cd = `cd ${directory}`
+
+  console.log({ silent })
 
   const packageOptions = {
     ...config.options,
@@ -30,8 +32,11 @@ module.exports = async ({ directory, silent, withFetch, withDocker }) => {
     directory,
     name: directory,
     description: `Project created with ${pkg.name}`,
-    dependencies: [...dependencies, ...(withFetch ? [config.extraDeps.fetch] : [])],
-    devDependencies,
+    dependencies: [...dependencies, ...(withFetch ? config.extraDeps.fetch : [])],
+    devDependencies: [...devDependencies, ...(withCommitlint ? config.extraDeps.commitlint : [])],
+    scripts: withCommitlint
+      ? config.options.scripts
+      : { ...config.options.scripts, ...config.extraOptions.commitlint.scripts },
   }
 
   logStep('start', chalk.cyan(directory))
@@ -49,6 +54,11 @@ module.exports = async ({ directory, silent, withFetch, withDocker }) => {
       await fs.copy(path.join(__dirname, 'templates/docker'), directory)
       logStep('docker')
     }
+
+    if (withCommitlint) {
+      await fs.copy(path.join(__dirname, 'templates/commitlint'), directory)
+      logStep('commitlint')
+    }
   } catch (err) {
     console.error(err)
     return
@@ -57,10 +67,9 @@ module.exports = async ({ directory, silent, withFetch, withDocker }) => {
   await createPackageJson(packageOptions)
   logStep('npm')
 
-  if (runCommands([cd, commands.gitInit])) logStep('git')
+  if (runCommands([cd, `${commands.gitInit} ${silent ? '--quiet' : ''}`])) logStep('git')
   if (runCommands([cd, commands.createLocalEnv])) logStep('env')
   if (runCommands([cd, ...commands.huskyCommands])) logStep('husky')
-
-  const initialCommitCommand = `git commit ${silent ? '--quiet' : ''} -m "init: :tada: initial commit"`
-  if (runCommands([cd, commands.gitAdd, initialCommitCommand])) logStep('commit')
+  if (withCommitlint && runCommands([cd, commands.huskyCommitlint])) logStep('commitlint_hook')
+  if (runCommands([cd, commands.gitAdd, `${commands.gitCommit} ${silent ? '--quiet' : ''}`])) logStep('commit')
 }

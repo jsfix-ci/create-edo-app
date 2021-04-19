@@ -2,12 +2,14 @@
   "commands": {
     "gitInit": "git init",
     "gitAdd": "git add .",
+    "gitCommit": "git commit -m 'init: :tada: initial commit'",
     "createLocalEnv": "cp .env.example .env",
     "huskyCommands": [
       "npm set-script prepare 'husky install'",
-      "npm run prepare",
+      "npm run prepare --silent",
       "npx husky add .husky/pre-commit 'npx lint-staged'"
-    ]
+    ],
+    "huskyCommitlint": "npx husky add .husky/commit-msg 'npx commitlint --config .commitlintrc.cjs --edit'"
   },
   "dependencies": [
     "express",
@@ -29,7 +31,21 @@
     "husky"
   ],
   "extraDeps": {
-    "fetch": "node-fetch"
+    "fetch": [
+      "node-fetch"
+    ],
+    "commitlint": [
+      "standard-version",
+      "@commitlint/cli",
+      "@commitlint/config-conventional"
+    ]
+  },
+  "extraOptions": {
+    "commitlint": {
+      "scripts": {
+        "release": "standard-version --no-verify --sign"
+      }
+    }
   },
   "options": {
     "author": "",
@@ -53,6 +69,8 @@
     "base": "Added basic source and configuration files",
     "fetch": "Added node-fetch utils",
     "docker": "Added Docker files",
+    "commitlint": "Added commitlintrc",
+    "commitlint_hook": "Added husky commit message hook",
     "npm": "Initialized npm package and installed dependencies",
     "git": "Initialized git repository",
     "env": "Created local .env file",
