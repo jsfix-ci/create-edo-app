@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/vanntile/create-edo-app/compare/v0.2.0...v0.3.0) (2021-04-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **flags:** - command flags were not detected
+* **deps:** - new major commander user
+
+### Features
+
+* :star2: add commitlint config ([9ce99e3](https://github.com/vanntile/create-edo-app/commit/9ce99e36c202c48145abbb7bc054d2623774ba23))
+
+
+### Bug Fixes
+
+* **flags:** :bug: input flags detected properly ([4d38b4c](https://github.com/vanntile/create-edo-app/commit/4d38b4c0569ae6b55aa4436dc4fa4895f24a7157))
+
+
+* **deps:** :nut_and_bolt: update commander dependency ([a3b0e98](https://github.com/vanntile/create-edo-app/commit/a3b0e98c61ef1acd095710f88a1b5fd931596c4e))
+
 ## [0.2.0](https://github.com/vanntile/create-edo-app/compare/v0.1.1...v0.2.0) (2021-04-19)
 
 
