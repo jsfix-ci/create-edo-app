@@ -1,0 +1,62 @@
+{
+  "commands": {
+    "gitInit": "git init",
+    "gitAdd": "git add .",
+    "createLocalEnv": "cp .env.example .env",
+    "huskyCommands": [
+      "npm set-script prepare 'husky install'",
+      "npm run prepare",
+      "npx husky add .husky/pre-commit 'npx lint-staged'"
+    ]
+  },
+  "dependencies": [
+    "express",
+    "express-async-errors",
+    "express-openapi-validator",
+    "cors",
+    "helmet",
+    "morgan",
+    "tslog"
+  ],
+  "devDependencies": [
+    "eslint",
+    "eslint-config-prettier",
+    "eslint-plugin-prettier",
+    "eslint-plugin-security",
+    "lint-staged",
+    "nodemon",
+    "prettier",
+    "husky"
+  ],
+  "extraDeps": {
+    "fetch": "node-fetch"
+  },
+  "options": {
+    "author": "",
+    "version": "1.0.0",
+    "license": "MIT",
+    "main": "src/index.mjs",
+    "type": "module",
+    "scripts": {
+      "start": "node src/index.mjs",
+      "dev": "nodemon src/index.mjs",
+      "lint": "eslint -c .eslintrc .",
+      "test": "echo 'OK'"
+    },
+    "engines": {
+      "node": "14.x",
+      "npm": "7.x"
+    }
+  },
+  "steps": {
+    "start": "Initializing project ",
+    "base": "Added basic source and configuration files",
+    "fetch": "Added node-fetch utils",
+    "docker": "Added Docker files",
+    "npm": "Initialized npm package and installed dependencies",
+    "git": "Initialized git repository",
+    "env": "Created local .env file",
+    "husky": "Initialized husky hook",
+    "commit": "Created initial commit"
+  }
+}
