@@ -76,5 +76,11 @@
     "env": "Created local .env file",
     "husky": "Initialized husky hook",
     "commit": "Created initial commit"
+  },
+  "templates": {
+    "base": "templates/base",
+    "fetch": "templates/fetch/utils.mjs",
+    "docker": "templates/docker",
+    "commitlint": "templates/commitlint"
   }
 }

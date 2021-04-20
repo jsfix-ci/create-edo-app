@@ -20,6 +20,7 @@ const runCommand = (command) => {
   return true
 }
 const runCommands = (commandList) => runCommand(commandList.join(' && '))
+const getTpl = (key) => path.join(__dirname, config.templates[key])
 
 module.exports = async ({ directory, silent, withFetch, withDocker, withCommitlint }) => {
   const cd = `cd ${directory}`
@@ -40,21 +41,21 @@ module.exports = async ({ directory, silent, withFetch, withDocker, withCommitli
   logStep('start', chalk.cyan(directory))
 
   try {
-    await fs.copy(path.join(__dirname, 'templates/base'), directory)
+    await fs.copy(getTpl('base'), directory)
     logStep('base')
 
     if (withFetch) {
-      await fs.copy(path.join(__dirname, 'templates/fetch/utils.mjs'), path.join(directory, 'src/utils/utils.mjs'))
+      await fs.copy(getTpl('fetch'), path.join(directory, 'src/utils/utils.mjs'))
       logStep('fetch')
     }
 
     if (withDocker) {
-      await fs.copy(path.join(__dirname, 'templates/docker'), directory)
+      await fs.copy(getTpl('docker'), directory)
       logStep('docker')
     }
 
     if (withCommitlint) {
-      await fs.copy(path.join(__dirname, 'templates/commitlint'), directory)
+      await fs.copy(getTpl('commitlint'), directory)
       logStep('commitlint')
     }
   } catch (err) {
