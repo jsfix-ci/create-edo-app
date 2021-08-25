@@ -38,6 +38,9 @@
       "standard-version",
       "@commitlint/cli",
       "@commitlint/config-conventional"
+    ],
+    "docker": [
+      "docker-secret"
     ]
   },
   "extraOptions": {
@@ -71,6 +74,7 @@
     "docker": "Added Docker files",
     "commitlint": "Added commitlintrc",
     "commitlint_hook": "Added husky commit message hook",
+    "npm-pre": "Running `npm install`",
     "npm": "Initialized npm package and installed dependencies",
     "git": "Initialized git repository",
     "env": "Created local .env file",

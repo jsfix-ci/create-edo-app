@@ -22,7 +22,8 @@ const runCommand = (command) => {
 const runCommands = (commandList) => runCommand(commandList.join(' && '))
 const getTpl = (key) => path.join(__dirname, config.templates[key])
 
-module.exports = async ({ directory, silent, withFetch, withDocker, withCommitlint }) => {
+module.exports = async (args) => {
+  const { directory, silent, withFetch, withDocker, withCommitlint } = args
   const cd = `cd ${directory}`
 
   const packageOptions = {
@@ -31,7 +32,11 @@ module.exports = async ({ directory, silent, withFetch, withDocker, withCommitli
     directory,
     name: directory,
     description: `Project created with ${pkg.name}`,
-    dependencies: [...dependencies, ...(withFetch ? config.extraDeps.fetch : [])],
+    dependencies: [
+      ...dependencies,
+      ...(withFetch ? config.extraDeps.fetch : []),
+      ...(withDocker ? config.extraDeps.docker : []),
+    ],
     devDependencies: [...devDependencies, ...(withCommitlint ? config.extraDeps.commitlint : [])],
     scripts: withCommitlint
       ? config.options.scripts
@@ -63,6 +68,7 @@ module.exports = async ({ directory, silent, withFetch, withDocker, withCommitli
     return
   }
 
+  logStep('npm-pre')
   await createPackageJson(packageOptions)
   logStep('npm')
 
