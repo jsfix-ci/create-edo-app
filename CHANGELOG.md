@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/vanntile/create-edo-app/compare/v0.3.0...v0.3.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* :bug: add docker-secret dependency ([d5ac422](https://github.com/vanntile/create-edo-app/commit/d5ac42221d2e55c5d7d265ef3af52a3524ab1601))
+
 ## [0.3.0](https://github.com/vanntile/create-edo-app/compare/v0.2.0...v0.3.0) (2021-04-19)
 
 
